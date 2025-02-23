@@ -3,7 +3,7 @@ import ShowTask from './ShowTask/ShowTask';
 
 const Home = () => {
     return (
-        <div className='w-11/12 mx-auto'>
+        <div >
             <ShowTask></ShowTask>
         </div>
     );
