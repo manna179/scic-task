@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const AddTask = () => {
+  const navigate = useNavigate();
   const handleAddTask = (e) => {
     e.preventDefault();
     const title = e.target.todo.value;
@@ -15,6 +18,7 @@ const AddTask = () => {
     })
       .then((response) => response.json())
       .then((data) => console.log("task added to the db",data));
+      navigate("/");
   };
   return (
     <div className="w-11/12 mx-auto ">
