@@ -30,7 +30,7 @@ const Register = () => {
         // const signInTime = res?.user?.metadata?.lastSignInTime;
 
         const newUser = { name, email };
-        fetch("http://localhost:3000/users", {
+        fetch("https://scic-server-ebon.vercel.app/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

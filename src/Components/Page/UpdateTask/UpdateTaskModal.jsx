@@ -28,7 +28,7 @@ const UpdateTaskModal = ({ task, id, setUserId, setTasks }) => {
 
   const handleUpdate = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+      const res = await fetch(`https://scic-server-ebon.vercel.app/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

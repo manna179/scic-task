@@ -9,7 +9,7 @@ const AddTask = () => {
     const category = e.target.category.value;
     const task = { title, description, category };
     console.log(task);
-    fetch("http://localhost:3000/tasks", {
+    fetch("https://scic-server-ebon.vercel.app/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

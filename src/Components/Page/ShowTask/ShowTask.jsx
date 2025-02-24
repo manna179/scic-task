@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UpdateTaskModal from "../UpdateTask/UpdateTaskModal";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const ShowTask = () => {
+  const {user}= useContext(AuthContext);
   const [tasks, setTasks] = useState([]);
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await fetch("http://localhost:3000/tasks");
+        const res = await fetch("https://scic-server-ebon.vercel.app/tasks");
         if (!res.ok) throw new Error("Failed to fetch tasks");
         const data = await res.json();
         setTasks(data);
@@ -29,7 +31,7 @@ const ShowTask = () => {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      const res = await fetch(`http://localhost:3000/tasks/${taskId}`, {
+      const res = await fetch(`https://scic-server-ebon.vercel.app/tasks/${taskId}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to delete task");
@@ -58,14 +60,18 @@ const ShowTask = () => {
 
                   {/* Open Modal */}
                  <div className="flex justify-end items-center mt-2 gap-2">
-                 <button className="px-4 py-2 text-white bg-green-500 rounded-md" onClick={() => handleOpenModal(task._id)}>
-                    Update
-                  </button>
+                 {
+                  user && <button className="px-4 py-2 text-white bg-green-500 rounded-md" onClick={() => handleOpenModal(task._id)}>
+                  Update
+                </button>
+                 }
 
                   {/* Delete Task */}
-                  <button onClick={() => handleDeleteTask(task._id)} className="px-4 py-2 rounded-md bg-red-600 text-white">
+                  {
+                    user && <button onClick={() => handleDeleteTask(task._id)} className="px-4 py-2 rounded-md bg-red-600 text-white">
                     Delete
                   </button>
+                  }
                  </div>
                 </div>
               ))}
@@ -73,7 +79,7 @@ const ShowTask = () => {
         </div>
       ))}
 
-      {/* Ensure modal always exists and opens with correct task */}
+      {/* Update Task Modal */}
       <UpdateTaskModal
         task={tasks.find((t) => t._id === userId)}
         id={userId}
